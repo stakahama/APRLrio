@@ -1,0 +1,14 @@
+Package: APRLrio
+Title: Collection of R Input/Output functions
+Version: 0.0.0.9000
+Authors@R: person("Satoshi", "Takahama", email = "satoshi.takahama@gmail.com", role = c("aut", "cre"))
+Description: I/O.
+Depends:
+    R (>= 3.2.3)
+License: GPLv3
+LazyData: true
+RoxygenNote: 5.0.1.9000
+Suggests:
+  RJSONIO,
+  chron,
+  gsubfn

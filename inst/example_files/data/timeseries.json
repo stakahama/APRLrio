@@ -1,0 +1,42 @@
+{
+    "header":"Russell, Lynn
+Scripps Institution of Oceanography/University of California San Diego
+DMT Single Particle Soot Photometer (SP2)
+CalMex 2010
+1, 1
+2010, 05, 15, 2010, 06, 30
+0
+",    
+    "special comments":"Processed with DMT PAPI software",
+    "normal comments":"PI_CONTACT_INFO: lmrussell@ucsd.ed, satoshi.takahama@epfl.ch
+PLATFORM: Parque Morelos ground site
+LOCATION: Tijuana, Mexico
+ASSOCIATED_DATA: N/A
+INSTRUMENT_INFO: N/A
+DATA_INFO: Units: ug/m3
+UNCERTAINTY: N/A
+ULOD_FLAG: -7777
+ULOD_VALUE: N/A
+LLOD_FLAG: -8888
+LLOD_VALUE: N/A
+DM_CONTACT_INFO: Data Manager: Lynn M. Russell (lmrussell@ucsd.edu); Satoshi Takahama (satoshi.takahama@epfl.ch)
+PROJECT_INFO: CalMex Dates of study: 5/1/10 - 7/15/10
+STIPULATIONS_ON_USE: Use of these data require prior ok from PI.
+OTHER_COMMENTS: N/A
+REVISION: A
+RA: Preliminary Data.  For in-field use only.
+",
+    "csvfile":"timeseries.csv",
+    "ictfile":"SP2timeseries_CalMexParqueMorelos_20100515_R0.ict",
+    "variables":{
+	"independent":"Start_time_UTC",
+	"dependent":["End_time_UTC",
+		     "Nconc (number per cubic centimeter)",
+		     "Mconc (nanograms per cubic meter)"]
+    },
+    "time":{
+	"variables":["Start_time_UTC","End_time_UTC"],
+	"reference":"2010-05-15 00:00:00",
+	"format":"%Y-%m-%d %H:%M:%S"
+    }
+}
