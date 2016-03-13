@@ -1,8 +1,14 @@
 APRLrio
 ===
 
-APRL R I/O (Input/Output) functions:
+APRL R package for I/O (Input/Output):
 
+- TSI SMPS/APS
 - E-AIM output (web html)
 - ICARTT (.ict)
-- TSI SMPS/APS
+
+Installation:
+
+```
+devtools::install_github("stakahama/APRLrio")
+```
