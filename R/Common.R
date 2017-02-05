@@ -1,14 +1,14 @@
 
 #' Strip
 #'
-#' Strip ends (space, \n, \t)
+#' Strip ends (whitespace, \code{"\n"}, \code{"\t"})
 #'
 #' @param x string
 #'
 #' @return stripped text
 #' @export
 
-Strip <- function(x) 
+Strip <- function(x)
   gsub("^[ \n\t]*|[ \n\t]*$","",x)
 
 
@@ -46,5 +46,5 @@ RemoveEmptyLines <- function(x)
 #' @return stripped text
 #' @export
 
-StripWhite <- function (x) 
+StripWhite <- function (x)
   gsub("^[ ]*|[ ]*$", "", x)

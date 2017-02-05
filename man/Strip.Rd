@@ -13,6 +13,6 @@ Strip(x)
 stripped text
 }
 \description{
-Strip ends (space, \n, \t)
+Strip ends (whitespace, \code{"\n"}, \code{"\t"})
 }
 

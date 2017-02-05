@@ -7,9 +7,11 @@
 JSON2ICT(jsonfile, csvfile, ictfile)
 }
 \arguments{
-\item{csvfile}{[optional]}
+\item{jsonfile}{JSON file}
 
-\item{ictfile}{[optional]}
+\item{csvfile}{[optional] data file}
+
+\item{ictfile}{[optional] output file name}
 }
 \value{
 produces side effect (writing ICT files)

@@ -7,7 +7,9 @@
 ReadEAIM(filename, divider = "[-]{5,}")
 }
 \arguments{
-\item{divider}{}
+\item{filename}{file name}
+
+\item{divider}{line divider between blocks of data}
 }
 \value{
 List of 3 tables.

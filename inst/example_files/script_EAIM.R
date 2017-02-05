@@ -17,11 +17,12 @@ StackedPolygon <- function(x,ymat,...) {
   }
 }
 
-matplot <- function(...) graphics::matplot(...,ann=FALSE)
+matplot <- function(...) graphics::matplot(..., ann=FALSE)
 
-title <- function(...) graphics::title(...,xpd=NA)
+title <- function(...) graphics::title(..., xpd=NA)
 
 color <- rainbow(5)
+ions <- c("Na","Cl","NO3","NH4","SO4")
 
 par(mfcol=c(4,2))
 par(xaxs="i",yaxs="i")
@@ -35,31 +36,31 @@ for( filename in htmlfiles ) {
   moles <- CalcMoles(sconc)
   masses <- CalcMasses(moles)
 
-  xvalues <- masses$NO3+sconc$`n_HNO3(g)`/MW["HNO3"]
+  xvalues <- masses[["NO3"]]+sconc[["n_HNO3(g)"]]/MW["HNO3"]
   solids <- grep("(s)",names(sconc),value=TRUE)
-  gases <- Filter(function(.x) !grepl("H2O",.x),grep("(g)",names(sconc),value=TRUE))
-  aq <- Filter(function(.x) !grepl("n_H\\(aq\\)|Volume|H2O|OH",.x),
-               grep("\\(aq\\)",names(sconc),value=TRUE))
+  ## gases <- Filter(function(.x) !grepl("H2O",.x),grep("(g)",names(sconc),value=TRUE))
+  ## aq <- Filter(function(.x) !grepl("n_H\\(aq\\)|Volume|H2O|OH",.x),
+  ##              grep("\\(aq\\)",names(sconc),value=TRUE))
+  gases <- !grepl("H2O", ,grep("(g)",names(sconc),value=TRUE))
+  aq <- !grepl("n_H\\(aq\\)|Volume|H2O|OH", grep("\\(aq\\)",names(sconc),value=TRUE))
 
   matplot(xvalues,sconc[,solids],type="l")
   legend("topright",lty=1:length(solids),col=1:length(solids),solids)
   if(i==1) title(ylab=expression("Moles"))
-  
+
   matplot(xvalues,sconc[,gases],type="l")
   legend("topright",lty=1:length(gases),col=1:length(gases),gases)
   if(i==1) title(ylab=expression("Moles"))
-  
+
   matplot(xvalues,sconc[,aq],type="l",lty=1:length(aq),col=1:length(aq))
   legend("topleft",lty=1:length(aq),col=1:length(aq),aq)
   if(i==1) title(ylab=expression("Moles"))
-  
+
   plot.new()
   plot.window(c(0,100),c(0,120),xaxs="i",yaxs="i")
   axis(1); axis(2); box()
-  StackedPolygon(masses$NO3+sconc$`n_HNO3(g)`/MW["HNO3"],
-                  masses[,c("Na","Cl","NO3","NH4","SO4")],
-                  col=color)
-  legend("topleft",c("Na","Cl","NO3","NH4","SO4"),fill=color)
+  StackedPolygon(xvalues, masses[,ions], col=color)
+  legend("topleft", ions, fill=color)
   if(i==1) title(ylab=expression("Mass"~(mu*g/m^3)))
 
   mtext(expression("HNO3"~(mu*g/m^3)),1,outer=TRUE)

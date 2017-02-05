@@ -4,13 +4,15 @@
 \alias{ReadTSI}
 \title{ReadTSI}
 \usage{
-ReadTSI(filename, delimiter = ",")
+ReadTSI(filename, sep)
 }
 \arguments{
-\item{delimiter}{}
+\item{filename}{file name}
+
+\item{sep}{delimiter}
 }
 \value{
-list
+TSI object (list).
 }
 \description{
 Read output of TSI AIM software

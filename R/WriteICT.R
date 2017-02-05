@@ -3,9 +3,9 @@
 #'
 #' Generate ICT-formatted files
 #'
-#' @param jsonfile
-#' @param csvfile [optional]
-#' @param ictfile [optional]
+#' @param jsonfile JSON file
+#' @param csvfile [optional] data file
+#' @param ictfile [optional] output file name
 #'
 #' @return produces side effect (writing ICT files)
 #' @export
@@ -36,11 +36,11 @@ JSON2ICT <- local({
     }
   }
 
-  ## ---------------------------------------------------------------------------  
+  ## ---------------------------------------------------------------------------
   Template <- function(x) {
     switch(x,
            "header" = "%(userlines)s
-%(independent variable)s 
+%(independent variable)s
 %(number of variables)d
 %(scale factors)s
 %(missing data indicators)s
@@ -121,7 +121,7 @@ JSON2ICT <- local({
     cat("\n")
     write.table(table, sep= ",", col.names= TRUE, row.names=FALSE,
                 quote=FALSE,na=na)
-    sink()   
+    sink()
   }
 
   function(jsonfile, csvfile, ictfile) {

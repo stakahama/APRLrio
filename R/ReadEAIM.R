@@ -46,7 +46,7 @@ model.salts <- list(
 
 
 cmpd.units <- list("ice" = c(H2O=1),
-              "H2O" = c(H2O=1),              
+              "H2O" = c(H2O=1),
               "H2SO4" = c(H=2,SO4=1),
               "HNO3" = c(H=1,NO3=1),
               "NH4NO3" = c(NH4=1,NO3=1),
@@ -57,7 +57,7 @@ cmpd.units <- list("ice" = c(H2O=1),
               "Na2SO4" = c(Na=2,SO4=1),
               "NaHSO4" = c(Na=1,H=1,SO4=1),
               "NaH3(SO4)2" = c(Na=1,H=3,SO4=2),
-              "Na3H(SO4)2" = c(Na=3,H=1,SO4=2),              
+              "Na3H(SO4)2" = c(Na=3,H=1,SO4=2),
               "NH4Cl" = c(NH4=1,Cl=1),
               "HCl" = c(H=1,Cl=1),
               "NaCl" = c(Na=1,Cl=1))
@@ -68,14 +68,14 @@ cmpd.units <- list("ice" = c(H2O=1),
 #'
 #' Read E-AIM HTML
 #'
-#' @param filename
-#' @param divider
+#' @param filename file name
+#' @param divider line divider between blocks of data
 #'
 #' @return List of 3 tables.
 #' @export
 
 ReadEAIM <- local({
-  
+
   ReadHTML <- function(url) {
     ## http://stackoverflow.com/questions/1844829/how-can-i-read-and-parse-the-contents-of-a-webpage-in-r
     webpage <- readLines(url)
@@ -83,11 +83,11 @@ ReadEAIM <- local({
     x <- XML::xpathSApply(pagetree, "//*/pre", XML::xmlValue)  # parse the tree by tables
     lines <- unlist(strsplit(x, "\n")) # do some clean up with regular expressions
   }
-  
+
   ReadSingle <- function(start, end, lines, fixedwidths=FALSE) {
     if(fixedwidths) {
       ## find widths
-      numeol <- max(nchar(lines[start:end]))    
+      numeol <- max(nchar(lines[start:end]))
       whites <- gregexpr("[ ]+",lines[start:end])
       maxcol <- sapply(whites[-1],length)==max(sapply(whites[-1],length))
       widthtable <- do.call(rbind,lapply(whites[-1][maxcol],diff))
@@ -112,7 +112,7 @@ ReadEAIM <- local({
     names(table) <- header
     table
   }
-  
+
   function(filename, divider="[-]{5,}") {
     lines <- ReadHTML(filename)
     lines <- lines[!lines %in% c("", " ")]
@@ -121,7 +121,7 @@ ReadEAIM <- local({
                   MoreArgs=list(lines))
     tables
   }
-  
+
 })
 
 
@@ -174,7 +174,7 @@ ExpandSolids <- local({
 #' @export
 
 CalcMoles <- local({
-  
+
   Txt2table <- function(label, text)
     cbind(data.frame(model=label),
           read.table(text=text, sep="\t", col.names=c("id","name"),
@@ -185,7 +185,7 @@ CalcMoles <- local({
     cmpd <- sub("^([0-9.]+)([A-Z].+)","\\2",x)
     setNames(replace(num,is.na(num),1),cmpd)
   }
-  
+
   Fill <- function(x,u) {
     y <- x[u]
     setNames(replace(y,is.na(y),0),u)
@@ -194,7 +194,7 @@ CalcMoles <- local({
   ExtractNames <- function(x)
     unique(names(unlist(unname(x))))
 
-  
+
   solids <- do.call(rbind, Map(Txt2table, names(model.salts), model.salts))
   solids$name[] <- gsub("[ ]·[ ]","*",solids$name)
   ##
@@ -211,7 +211,7 @@ CalcMoles <- local({
     sn <- sub(patt,"\\1",aq)
     starred <- setNames(sub("\\.","*",names(table)),names(table))
     moles <- mapply(function(x) {
-      ilp <- aq[grep(x,sn)]      
+      ilp <- aq[grep(x,sn)]
       isp <- starred[starred %in% names(solidmat[,x])]
       (if(length(ilp)>0) rowSums(table[,ilp,drop=FALSE],na.rm=TRUE)
        else 0) + (if(length(isp)>0) rowSums(sweep(table[,names(isp),drop=FALSE],2,solidmat[,x][isp],"*"), na.rm=TRUE)
